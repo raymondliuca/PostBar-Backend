@@ -1,0 +1,25 @@
+<h1>Authors</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email Address</th>
+        <th>Phone Number</th>
+        <th>Created At</th>
+
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <% authors.forEach(function(author) { %>
+        <tr>
+            <td> <a href="/author/detail?id=<%= author.id %>"> <%= author.name %> </a> </td>
+            <td> <%= author.emailAddress %> </td>
+            <td> <%= author.phoneNumber %> </td>
+            <td> <%= moment(author.createdAt).fromNow() %> </td>
+
+            <td> <a href="/author/edit?id=<%= author.id %>">Edit</a> </td>
+            <td> <a href="/author/delete?id=<%= author.id %>">Delete</a> </td>
+        </tr>
+    <% }) %>
+</table>

@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(137, 172, 202);
+    
+}
+
+.nav{
+    float: left;
+  }
+
+.menuAlignment {
+    text-align: right;
+}
+
+.alert-danger {
+    background-color: red;
+}
