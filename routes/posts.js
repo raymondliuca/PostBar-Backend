@@ -10,7 +10,7 @@ router.use(methodOverride('_method'))
 router.use(express.json())
 
 // Import Author Controller
-const postCntrl = require("../controllers/author");
+const postCntrl = require("../controllers/post");
 
 // Routes
 router.get("/post/add", isLoggedIn, postCntrl.post_create_get);

@@ -1,108 +1,60 @@
-// API's for Article Module
+// API's for comment Module
 
 // Include model
-const {Article} = require("../models/Article");
-const {Author} = require("../models/Post");
+const {Comment} = require("../models/Comment");
+const {Post} = require("../models/Post");
 const moment = require("moment");
 
-// HTTP GET - Load an Add Article Form
-exports.article_create_get = (req, res) => {
-    
-    Author.find()
-    .then((authors) => {
-        res.render("article/add", {authors});
-    })
-    .catch((err) => {
-        console.log(err);
-        //res.send("ERRRRORRRR!!!!!!");
-    });
+// HTTP GET - Load an Add comment Form
+exports.comment_create_get = (req, res) => {
+   
+    res.render("comment/add");
+
 }
 
-// HTTP POST - Article
-exports.article_create_post = (req, res) => {
-    console.log(req.body);
-    let article = new Article(req.body);
+// HTTP POST - comment
+exports.comment_create_post = (req, res) => {
+    
+    let comment = new Comment(req.body);
 
-    //Save Article
-    article.save()
+    //Save comment
+    comment.save()
     .then(() => {
-        // Save article to authors as well
-        req.body.author.forEach(author => {
-            Author.findById(author, (error, author) => {
-              author.articles.push(article);
-              author.save();
+        // Save comment to authors as well
+        req.body.author.forEach(post => {
+            Post.findById(author, (error, post) => {
+              post.comments.push(comment);
+              post.save();
             });
         });
 
-        res.redirect("/article/index");
+        res.redirect("/comment/index");
     })
     .catch((err) => {
         console.log(err);
         res.send("ERRRRORRRR!!!!!!");
     });
-
-//     Author.findById(req.body.author, (error, author) => {
-//         author.article.push(article);
-//         author.save();
-//         res.redirect('/author/index');
-//     })
 };
 
-// HTTP GET - Article Index
-exports.article_index_get = (req, res) => {
-    Article.find().populate('author')
-    .then(articles => {
-        res.render("article/index", {articles: articles, moment}) // moment : moment
+// HTTP GET - comment Index
+exports.comment_index_get = (req, res) => {
+    Comment.find().populate('author')
+    .then(comments => {
+        res.render("comment/index", {comments: comments, moment}) // moment : moment
     })
     .catch(err => {
         console.log(err);
     });
 };
 
-// HTTP GET - Article By ID
-exports.article_show_get = (req, res) => {
+// HTTP DELETE - comment
+exports.comment_delete_get = (req, res) => {
     console.log(req.query.id);
-
-    Article.findById(req.query.id).populate('author')
-    .then(article => {
-        res.render("article/detail", {article, moment})
-    })
-    .catch(err => {
-        console.log(err);
-    });
-};
-
-// HTTP DELETE - Article
-exports.article_delete_get = (req, res) => {
-    console.log(req.query.id);
-    Article.findByIdAndDelete(req.query.id)
+    Comment.findByIdAndDelete(req.query.id)
     .then(() => {
-        res.redirect("/article/index")
+        res.redirect("/comment/index")
     })
     .catch(err => {
         console.log(err);
     })
 }
-
-// HTTP GET - Load Article Edit Form
-exports.article_edit_get = (req, res) =>{
-    Article.findById(req.query.id)
-    .then((article) => {
-        res.render("article/edit", {article})
-    })
-    .catch(err => {
-        console.log(err);
-    })
-}
-
-// HTTP PUT - Article Update
-exports.article_update_put = (req, res) => {
-    Article.findByIdAndUpdate(req.body.id, req.body)
-    .then(() => {
-        res.redirect("/article/index");
-    })
-    .catch(err => {
-        console.log(err);
-    })
-}
-
