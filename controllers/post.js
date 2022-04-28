@@ -17,11 +17,11 @@ exports.post_create_post = (req, res) => {
 
     let post = new Post(req.body);
     console.log(req.user.is)
-    post.user = req.user.is
+    post.author = req.user.is
     console.log(post)
     post.save()
     .then(() => {
-        User.findById(post.user, (error, user) => {
+        User.findById(post.author, (error, user) => {
             user.posts.push(post);
             user.save();
         });
@@ -37,7 +37,7 @@ exports.post_create_post = (req, res) => {
 
 // HTTP GET - post Index
 exports.post_index_get = (req, res) => {
-    Post.find().populate('comments')
+    Post.find().populate('author')
     .then(posts => {
         // res.render("post/index", {posts: posts, moment}) // moment : moment
         res.json({posts})  //posts: posts

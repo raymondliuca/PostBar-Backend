@@ -13,8 +13,8 @@ router.use(express.urlencoded({extended: true}));
 const commentCntrl = require("../controllers/comment");
 
 // Routes
-router.get("/comment/add", isLoggedIn, commentCntrl.comment_create_get);
-router.post("/comment/add", commentCntrl.comment_create_post);
+router.get("/post/detail/?id/comment/add", isLoggedIn, commentCntrl.comment_create_get);
+router.post("/post/detail/?id/comment/add", isLoggedIn, commentCntrl.comment_create_post);
 router.get("/comment/index", commentCntrl.comment_index_get);
 router.get("/comment/delete", commentCntrl.comment_delete_get);
 

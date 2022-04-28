@@ -14,19 +14,16 @@ exports.comment_create_get = (req, res) => {
 exports.comment_create_post = (req, res) => {
     
     let comment = new Comment(req.body);
-
-    //Save comment
+    comment.user = req.user.is
     comment.save()
     .then(() => {
         // Save comment to authors as well
-        req.body.author.forEach(post => {
-            Post.findById(author, (error, post) => {
-              post.comments.push(comment);
-              post.save();
-            });
-        });
-
-        res.redirect("/comment/index");
+        Post.findByIdAndUpdate(req.body._id, req.body, {new: true})
+        .then((post) => {
+            post.comments.push(comment);
+            post.save();
+            res.json({post})
+        })
     })
     .catch((err) => {
         console.log(err);

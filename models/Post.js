@@ -5,7 +5,7 @@ const postSchema = mongoose.Schema(
         topic: String,
         title: String,
         content: String,
-        user: {
+        author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
