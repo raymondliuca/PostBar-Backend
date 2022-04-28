@@ -53,7 +53,7 @@ exports.post_show_get = (req, res) => {
 
     Post.findById(req.query.id).populate('comments')
     .then(post => {
-        res.render("post/detail", {post, moment})
+        res.json({post})
     })
     .catch(err => {
         console.log(err);
