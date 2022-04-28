@@ -7,9 +7,7 @@ const moment = require("moment");
 
 // HTTP GET - Load an Add comment Form
 exports.comment_create_get = (req, res) => {
-   
     res.render("comment/add");
-
 }
 
 // HTTP POST - comment

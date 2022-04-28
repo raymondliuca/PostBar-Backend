@@ -31,7 +31,7 @@ exports.auth_signup_post = (req, res) => {
     user.save()
     .then(() => {
         // res.redirect("/auth/signin");
-        res.json({"message": "User Created Successfully!!!"})
+        res.json({user, "message": "User Created Successfully!!!"})
     })
     .catch((err) => {
 

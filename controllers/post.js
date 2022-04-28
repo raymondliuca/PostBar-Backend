@@ -3,6 +3,7 @@
 // Include model
 const {Comment} = require("../models/Comment");
 const {Post} = require("../models/Post");
+const User = require("../models/User");
 const moment = require("moment");
 
 // HTTP GET - Load an Add post Form
@@ -15,11 +16,17 @@ exports.post_create_post = (req, res) => {
     console.log(req.body);
 
     let post = new Post(req.body);
-
-    // Save post
+    console.log(req.user.is)
+    post.user = req.user.is
+    console.log(post)
     post.save()
-    .then((post) => {
-        // res.redirect("/post/index");
+    .then(() => {
+        User.findById(post.user, (error, user) => {
+            user.posts.push(post);
+            user.save();
+        });
+    })
+    .then(() => {
         res.json({post})
     })
     .catch((err) => {
