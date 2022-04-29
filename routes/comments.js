@@ -14,7 +14,7 @@ const commentCntrl = require("../controllers/comment");
 // Routes
 
 router.post("/comment/add", isLoggedIn, commentCntrl.comment_create_post);
-
+router.get("/comment/detail", commentCntrl.comment_show_get);
 router.get("/comment/delete", commentCntrl.comment_delete_get);
 
 // Export router

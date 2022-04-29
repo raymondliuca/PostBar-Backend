@@ -14,7 +14,7 @@ exports.comment_create_post = (req, res) => {
     comment.author = req.body.author.is
     comment.save()
     .then((post) => {
-        Post.findById(req.body.post._id)
+        Post.findById(req.body.post)
         .then((post) => {
             post.comments.push(comment);
             post.save();
@@ -24,6 +24,18 @@ exports.comment_create_post = (req, res) => {
     .catch((err) => {
         console.log(err);
         res.send("ERRRRORRRR!!!!!!");
+    });
+};
+
+exports.comment_show_get = (req, res) => {
+    console.log(req.query.id);
+
+    Comment.findById(req.query.id).populate('author')
+    .then(comment => {
+        res.json({comment})
+    })
+    .catch(err => {
+        console.log(err);
     });
 };
 

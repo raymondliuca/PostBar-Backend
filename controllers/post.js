@@ -50,7 +50,7 @@ exports.post_index_get = (req, res) => {
 exports.post_show_get = (req, res) => {
     console.log(req.query.id);
 
-    Post.findById(req.query.id).populate('comments')
+    Post.findById(req.query.id)
     .then(post => {
         res.json({post})
     })
