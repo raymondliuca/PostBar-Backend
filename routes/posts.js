@@ -14,7 +14,7 @@ const postCntrl = require("../controllers/post");
 
 // Routes
 router.get("/post/add", isLoggedIn, postCntrl.post_create_get);
-router.post("/post/add", postCntrl.post_create_post);
+router.post("/post/add", isLoggedIn, postCntrl.post_create_post);
 router.get("/post/index", postCntrl.post_index_get);
 router.get("/post/detail", postCntrl.post_show_get);
 router.delete("/post/delete", isLoggedIn, postCntrl.post_delete_get);

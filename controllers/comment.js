@@ -5,20 +5,16 @@ const {Comment} = require("../models/Comment");
 const {Post} = require("../models/Post");
 const moment = require("moment");
 
-// HTTP GET - Load an Add comment Form
-exports.comment_create_get = (req, res) => {
-    res.render("comment/add");
-}
+
 
 // HTTP POST - comment
 exports.comment_create_post = (req, res) => {
-    
+    console.log(req.body)
     let comment = new Comment(req.body);
-    comment.user = req.user.is
+    comment.author = req.body.author.is
     comment.save()
-    .then(() => {
-        // Save comment to authors as well
-        Post.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((post) => {
+        Post.findById(req.body.post._id)
         .then((post) => {
             post.comments.push(comment);
             post.save();
@@ -28,17 +24,6 @@ exports.comment_create_post = (req, res) => {
     .catch((err) => {
         console.log(err);
         res.send("ERRRRORRRR!!!!!!");
-    });
-};
-
-// HTTP GET - comment Index
-exports.comment_index_get = (req, res) => {
-    Comment.find().populate('author')
-    .then(comments => {
-        res.render("comment/index", {comments: comments, moment}) // moment : moment
-    })
-    .catch(err => {
-        console.log(err);
     });
 };
 
