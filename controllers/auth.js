@@ -61,16 +61,6 @@ exports.auth_signin_get = (req, res) => {
     res.render("auth/signin");
 }
 
-// HTTP POST -signin - to post the data
-
-// exports.auth_signin_post = 
-//     passport.authenticate("local", {
-//         successRedirect: "/",
-//         failureRedirect: "/auth/signin",
-//         failureFlash: "Invalid username or password",
-//         successFlash: "You logged in successfully."
-// })
-
 exports.auth_signin_post = async (req, res) => {
     let { emailAddress, password} = req.body
 

@@ -49,13 +49,11 @@ app.use(function(req, res, next) {
 
 
 // Import Routes
-const indexRoute = require('./routes/index');
 const commentRoutes = require("./routes/comments");
 const postRoutes = require("./routes/posts");
 const authRoutes = require("./routes/auth");
 
 // Mount Routes
-app.use('/', indexRoute);
 app.use('/', commentRoutes);
 app.use('/', postRoutes);
 app.use('/', authRoutes);

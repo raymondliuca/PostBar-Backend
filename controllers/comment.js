@@ -39,14 +39,3 @@ exports.comment_show_get = (req, res) => {
     });
 };
 
-// HTTP DELETE - comment
-exports.comment_delete_get = (req, res) => {
-    console.log(req.query.id);
-    Comment.findByIdAndDelete(req.query.id)
-    .then(() => {
-        res.redirect("/comment/index")
-    })
-    .catch(err => {
-        console.log(err);
-    })
-}
