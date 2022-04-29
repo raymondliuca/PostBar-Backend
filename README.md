@@ -3,10 +3,8 @@
  
 **Post-Bar privide a environment for people working in programming to communicate, share information and talk freely.
 <br>
-<div id='imgBox'>
-    <img class='screenshot' src="./public/img/1.png/>                         
-    <img class='screenshot' src="./public/img/2.png/>
-</div>
+![alt text](public/img//1.png)
+![alt text](public/img/2.png)
 <br>
 
 ## Technologies Used
