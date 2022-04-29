@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config();
 const flash = require('connect-flash');
+const favicon = require('serve-favicon');
+const path = require('path');
 
 // Port Configuration
 const PORT = process.env.PORT;
@@ -13,7 +15,8 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 
 // Look for static files here (CSS, JS Images Video, Audio)
-app.use(express.static('public'));
+app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 const expressLayouts = require("express-ejs-layouts");
 
@@ -59,6 +62,10 @@ app.use('/', authRoutes);
 
 // NodeJS to look in a folder called views for all ejs files.
 app.set("view engine", "ejs");
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Connection with mongoDB
 mongoose.connect(process.env.DATABASE_URL, {
