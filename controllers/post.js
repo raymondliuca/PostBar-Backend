@@ -13,11 +13,10 @@ exports.post_create_get = (req, res) => {
 
 // HTTP POST - post
 exports.post_create_post = (req, res) => {
-    console.log(req.body);
 
     let post = new Post(req.body);
-    console.log(req.user.is)
-    post.author = req.user.is
+    console.log(req.body)
+    post.author = req.body.author.is
     console.log(post)
     post.save()
     .then(() => {
